@@ -11,7 +11,8 @@ jobs:
   
   build:
     steps:
-      - uses: cloudbees-io/checkout@v1
+      - name: checkout
+        uses: cloudbees-io/checkout
       - name: Build Java App
         uses: docker://maven:3.9-eclipse-temurin-11
         run: |
