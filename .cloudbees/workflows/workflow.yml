@@ -12,7 +12,9 @@ jobs:
   build:
     steps:
       - name: checkout
-        uses: cloudbees-io/checkout
+        uses: docker://alpine/git:latest
+        run: |
+          git clone https://${{secrets.GIT_SECRET_ACCESS_TOKEN}}@github.com/cloudbees-io/template-java.git .
       - name: Build Java App
         uses: docker://maven:3.9-eclipse-temurin-11
         run: |
