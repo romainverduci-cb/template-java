@@ -1,0 +1,21 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: build
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  java-build:
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout@v1
+      - name: mvn install
+        uses: docker://maven:3.9-eclipse-temurin-21-alpine
+        run: mvn install
+      - name: scan
+        uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v2
+        with:
+          language: JAVA
